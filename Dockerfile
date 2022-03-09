@@ -17,4 +17,15 @@ RUN apt update \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
+# freetype fonts for captcha
+RUN apt update && apt install wget -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && wget http://iweb.dl.sourceforge.net/project/freetype/freetype2/2.5.0/freetype-2.5.0.1.tar.bz2 \
+    && tar xvfj freetype-2.5.0.1.tar.bz2 \
+    && cd freetype-2.5.0.1 \
+    && ./configure --without-png \
+    && make \
+    && make install
+
+
 RUN a2enmod rewrite 

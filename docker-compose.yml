@@ -1,0 +1,50 @@
+version: '3.7'
+
+networks:
+  web:
+    external:
+     name: web
+      
+volumes:
+  project:
+    driver: local
+    
+configs:
+  id-apache-config:
+    external: true
+
+services:
+  web:
+    image: marcelofmatos/apache-php:5.6-mysql-ldap
+    environment:
+      #PHP_EXTENSIONS: "mysql pdo_mysql intl"
+      #PHP_EXTENSIONS: "pgsql pdo_pgsql intl"
+      UPLOAD_LIMIT: 20M
+      HTTPS: 'on'
+      HTTP_X_FORWARDED_PROTO: 'https'
+    configs:
+      - source: id-apache-config
+        target: /etc/apache2/sites-available/000-default.conf
+    networks:
+      - default
+      - web
+    volumes:
+      - project:/var/www/html
+    #command: sh -c "php artisan serve --host=0.0.0.0 --port=80 ; tail -f /dev/null" 
+    ports:
+      - 8890:8080
+      - 445:443
+    links:
+      - database:database
+### Produção com traefik
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${NODE_HOSTNAME}
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.${SUBDOMAIN}-router0.loadbalancer.server.port=8080
+        - traefik.http.routers.${SUBDOMAIN}-router0.rule=Host(`${SUBDOMAIN}.teste.ufrr.br`)
+        - traefik.http.routers.${SUBDOMAIN}-router0.tls.certresolver=myresolver
