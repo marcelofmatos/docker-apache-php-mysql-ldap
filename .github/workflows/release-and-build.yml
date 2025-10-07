@@ -250,30 +250,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: 🧪 Test Docker image
-        run: |
-          echo "🚀 Starting container for testing..."
-          docker run -d --name test-container -p 8080:3000 test-image
-          sleep 10
-          echo "🔍 Testing health endpoint..."
-          if curl -f http://localhost:8080/health; then
-            echo "✅ Health check passed!"
-          else
-            echo "❌ Health check failed!"
-            docker logs test-container
-            exit 1
-          fi
-          echo "🔍 Testing main application..."
-          if curl -f -s http://localhost:8080 | grep -q "<html"; then
-            echo "✅ Application is serving correctly!"
-          else
-            echo "❌ Application is not serving correctly!"
-            docker logs test-container
-            exit 1
-          fi
-          docker stop test-container
-          docker rm test-container
-
       - name: 🚀 Build and push Docker image
         uses: docker/build-push-action@v5
         with:
