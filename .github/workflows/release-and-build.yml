@@ -33,7 +33,7 @@ jobs:
     
     steps:
       - name: 📦 Checkout repository
-          token: ${{ secrets.GH_TOKEN }}
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -121,6 +121,8 @@ jobs:
           fi
 
       - name: 📋 Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           NEW_VERSION="${{ steps.version.outputs.new_version }}"
           CURRENT_VERSION="${{ steps.version.outputs.current_version }}"
