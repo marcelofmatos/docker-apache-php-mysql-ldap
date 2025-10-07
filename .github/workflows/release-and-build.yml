@@ -289,5 +289,5 @@ jobs:
           echo "docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$MAJOR_VERSION" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "# Run container" >> $GITHUB_STEP_SUMMARY
-          echo "docker run -d -p 8080:3000 --env-file .env ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+          echo "docker run -d -p 8080:80 --env-file .env ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
