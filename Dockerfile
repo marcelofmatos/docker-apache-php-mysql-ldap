@@ -15,4 +15,16 @@ RUN apt update \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN a2enmod rewrite 
+RUN a2enmod rewrite
+
+# Instalar dependências necessárias para o Composer
+RUN apt update \
+    && apt install -y git unzip curl \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instalar Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Verificar instalação
+RUN composer --version
