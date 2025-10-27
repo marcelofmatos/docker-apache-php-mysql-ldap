@@ -31,12 +31,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer --version
 
 # Instalar bash-completion e configurar autocomplete para Artisan
-RUN apt update \
-    && apt install -y bash-completion \
-    && apt clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && curl -fsSL https://raw.githubusercontent.com/ahinkle/laravel-bash-completion/master/laravel-artisan-bash-completion \
-       -o /etc/bash_completion.d/artisan \
-    && chmod +x /etc/bash_completion.d/artisan \
-    && echo 'alias artisan="php artisan"' >> /root/.bashrc \
-    && echo '[ -f /etc/bash_completion.d/artisan ] && source /etc/bash_completion.d/artisan' >> /root/.bashrc
+# RUN apt update \
+#     && apt install -y bash-completion \
+#     && apt clean \
+#     && rm -rf /var/lib/apt/lists/* \
+#     && curl -fsSL https://raw.githubusercontent.com/ahinkle/laravel-bash-completion/master/laravel-artisan-bash-completion \
+#        -o /etc/bash_completion.d/artisan \
+#     && chmod +x /etc/bash_completion.d/artisan \
+#     && echo 'alias artisan="php artisan"' >> /root/.bashrc \
+#     && echo '[ -f /etc/bash_completion.d/artisan ] && source /etc/bash_completion.d/artisan' >> /root/.bashrc
