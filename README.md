@@ -1,6 +1,6 @@
 # docker-apache-php-mysql-ldap
 
-Imagem Docker de Apache 2.4 com PHP 7.4 preparada para aplicações PHP que utilizam MySQL e LDAP. Inclui extensões mysqli, pdo_mysql, ldap e zip, além do mod_rewrite habilitado no Apache.
+Imagem Docker de Apache 2.4 com PHP 7.4 preparada para aplicações PHP que utilizam MySQL e LDAP. Inclui extensões mysqli, pdo_mysql, ldap, zip e gd, além do mod_rewrite habilitado no Apache.
 
 ## Especificações técnicas
 
@@ -11,6 +11,7 @@ Imagem Docker de Apache 2.4 com PHP 7.4 preparada para aplicações PHP que util
   - pdo_mysql
   - ldap
   - zip
+  - gd
 - **Módulos Apache habilitados**:
   - mod_rewrite
 - **DocumentRoot padrão**: `/var/www/html`
